@@ -37,11 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
     'example',
     'youtube',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,13 +76,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vercel_app.wsgi.app'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 # Note: Django modules for using databases are not support in serverless
 # environments like Vercel. You can use a database over HTTP, hosted elsewhere.
 
-DATABASES = {}
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'english-listening',
+    'USER': 'NguyenVanDo51',
+    'PASSWORD': '<% PASSWORD %>',
+    'HOST': 'ep-purple-salad-508843.ap-southeast-1.aws.neon.tech',
+    'PORT': '5432',
+  }
+}
 
 
 # Password validation
