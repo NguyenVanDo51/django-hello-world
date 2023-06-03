@@ -3,6 +3,11 @@
 pip freeze > requirements.txt
 ```
 
+## install all python modules and packages listed in the requirements.txt file
+```bash
+pip install -r .\requirements.txt
+```
+
 ## migrations models in a app
 ```bash
 python .\manage.py makemigrations youtube

@@ -15,18 +15,6 @@ def transcript(request):
             t = transcript.fetch()
     return JsonResponse(t, safe=False)
 
-
-def index(request):
-    video_id = request.GET.get('video_id')
-    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-
-    t = []
-    for transcript in transcript_list:
-        if transcript.language_code == 'en-GB' or transcript.language_code == 'en':
-            t = transcript.fetch()
-    return render(request, 'index.html', {'transcripts': t, 'video_id': video_id, 'transcript_length': len(t)})
-
-
 def save_result(request):
     # Lấy nội dung của phần thân và chuyển đổi thành chuỗi
     body = request.body.decode('utf-8')
@@ -36,7 +24,7 @@ def save_result(request):
         try:
             content = data['content']
             video_id = data['video_id']
-            writing = Writings.objects.update_or_create(
+            Writings.objects.update_or_create(
                 video_id=video_id, defaults={'content': content})
             return JsonResponse({'message': 'success'})
         except Exception as e:
